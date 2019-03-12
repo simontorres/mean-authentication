@@ -3,10 +3,22 @@ var app = angular.module('booksApp', ['ngRoute', 'ngResource']);
 app.config(function ($routeProvider, $locationProvider) {
     $routeProvider
         .when("/", {
-            templateUrl: '/views/index.view.html'
+            templateUrl: '/views/index.view.html',
+            controller: 'indexController'
         })
         .when("/books", {
-            templateUrl: '/views/books.view.html'
-    });
+            templateUrl: '/views/books.view.html',
+            controller: "booksController"
+        })
+        .when("/login", {
+            templateUrl: '/views/login.view.html',
+            controller: 'loginController'
+        })
+        .when("/signup", {
+            templateUrl: '/views/signup.view.html',
+            controller: 'signupController'
+        })
+        .otherwise({redirectTo: '/'});
+
     $locationProvider.html5Mode(true);
 });
