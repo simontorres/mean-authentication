@@ -13,7 +13,7 @@ mongoose.connect(config.database, { promiseLibrary: require('bluebird')})
     .then(() => console.log('Connection to database succesful'))
     .catch((err) => console.error(err));
 
-var indexRouter = require('./routes/index');
+// var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 var apiRouter = require('./routes/api');
 
@@ -26,11 +26,13 @@ app.use(bodyParser.urlencoded({'extended':'false'}));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
-app.use(express.static(path.join(__dirname, 'public')));
 
-app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/api', apiRouter);
+app.use(express.static(path.join(__dirname, 'public')));
+app.use('*', function (req, res) {
+    res.sendFile(__dirname + '/public/index.html');
+});
 
 
 module.exports = app;
