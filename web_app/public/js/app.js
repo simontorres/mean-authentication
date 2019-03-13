@@ -10,9 +10,9 @@ app.config(function ($routeProvider, $locationProvider) {
             templateUrl: '/views/books.view.html',
             controller: "booksController"
         })
-        .when("/login", {
-            templateUrl: '/views/login.view.html',
-            controller: 'loginController'
+        .when("/signin", {
+            templateUrl: '/views/signin.view.html',
+            controller: 'signinController'
         })
         .when("/signup", {
             templateUrl: '/views/signup.view.html',
@@ -22,4 +22,18 @@ app.config(function ($routeProvider, $locationProvider) {
         .otherwise({redirectTo: '/'});
 
     $locationProvider.html5Mode(true);
+});
+
+
+app.factory('authStatus', function () {
+    var status = false;
+
+    return {
+        getAuthStatus: function () {
+            return status;
+        },
+        setAuthStatus: function (newStatus) {
+            status = newStatus;
+        }
+    }
 });

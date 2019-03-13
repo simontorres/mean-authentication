@@ -58,10 +58,14 @@ router.post('/signin', function (req, res) {
 });
 
 
-router.post('/book', passport.authenticate('jwt', { session: false }), function (req, res) {
+router.get('/test', passport.authenticate('jwt', {session: false}), function(req, res) {
+    res.json({sucess: true});
+});
+
+
+router.post('/books', passport.authenticate('jwt', { session: false }), function (req, res) {
     var token = getToken(req.headers);
     if (token) {
-        console.log(req.body);
         var newBook = new Book({
             isbn: req.body.isbn,
             title: req.body.title,
@@ -81,12 +85,20 @@ router.post('/book', passport.authenticate('jwt', { session: false }), function 
 });
 
 
-router.get('/book', passport.authenticate('jwt', {session: false}), function (req, res) {
+router.get('/books', passport.authenticate('jwt', {session: false}), function (req, res) {
     var token = getToken(req.headers);
     if (token) {
+        console.log(token);
         Book.find(function (err, books) {
-            if (err) return next(err);
-            res.json(books);
+            if (err) {
+                console.log(err);
+                return next(err);
+            } else if (books.length > 1) {
+                res.json({sucess: true, books: books, msg: 'Found ' + books.length + ' books'});
+            } else {
+                res.json({sucess: false, msg: 'There is no record of books'});
+            }
+
         });
     } else {
         return res.status(403).send({success: false, msg: 'Unauthorized access.'})
@@ -95,7 +107,7 @@ router.get('/book', passport.authenticate('jwt', {session: false}), function (re
 
 
 getToken = function(headers) {
-    if (headers ** headers.authorization) {
+    if (headers && headers.authorization) {
         var parted = headers.authorization.split(' ');
         if (parted.length === 2) {
             return parted[1];
