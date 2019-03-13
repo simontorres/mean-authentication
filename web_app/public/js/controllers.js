@@ -1,14 +1,31 @@
 var app = angular.module('booksApp');
 
-app.controller('mainController', function ($scope, $http, $location, $window, authStatus) {
-    authStatus.setAuthStatus($window.localStorage.getItem('jwtToken') != null)
+app.controller('mainController', function ($scope, $http, $uibModal, $location, $window) {
+    $scope.showSignin = function () {
+        var modalInstance = $uibModal.open({
+            templateUrl: 'views/signin.view.html',
+            controller: 'signinController',
+            scope: $scope,
+            resolve: {
+                loginForm: function () {
+                    return $scope.loginForm;
+                }
+            }
+        });
+        modalInstance.result.then(function (selectedItem) {
+            console.log(selectedItem);
+        })
+    };
 
-    $scope.isSignedIn = authStatus.getAuthStatus();
 
+
+    //  authStatus.setAuthStatus($window.localStorage.getItem('jwtToken') != null)
+   //
+   //  $scope.isSignedIn = authStatus.getAuthStatus();
+   //
     $scope.signout = function () {
         console.log("signing out");
       $window.localStorage.removeItem('jwtToken');
-      authStatus.setAuthStatus(false);
    };
 
 
@@ -18,8 +35,8 @@ app.controller('indexController', function ($scope, $http, $location, $window) {
     console.log(' This is Index');
 });
 
-app.controller('signinController', function ($scope, $http, $location, $window, authStatus) {
-    $scope.loginData = {
+app.controller('signinController', function ($scope, $http, $location, $window, $uibModalInstance) {
+    $scope.signinData = {
         username: '',
         password: ''
     };
@@ -27,24 +44,31 @@ app.controller('signinController', function ($scope, $http, $location, $window, 
     $scope.data = null;
 
     $scope.signin = function () {
+        console.log('signining in');
         $http({
             method: 'POST',
             url: '/api/signin',
-            data: $scope.loginData
+            data: $scope.signinData
         }).then(function (res) {
             // console.log(res.data);
             if (res.data.success) {
                 $window.localStorage.setItem('jwtToken', res.data.token);
-                authStatus.setAuthStatus(true);
+
                 $location.path('/books');
             } else {
                 $scope.message = res.data.msg;
             }
         }, function (err) {
             console.log(err);
-            $scope.message = err.error.msg;
+            $scope.message = err.data.msg;
         });
+        $uibModalInstance.close();
+    };
+
+    $scope.cancel = function () {
+        $uibModalInstance.dismiss('cancel');
     }
+
 });
 
 app.controller('signupController', function ($scope, $http, $location) {

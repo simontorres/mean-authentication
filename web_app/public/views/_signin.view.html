@@ -1,0 +1,19 @@
+<div class="container">
+    <form name="loginForm" ng-submit="login()">
+        <div class="alert alert-warning alert-dismissible" role="alert" ng-if="message !== ''">
+          <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+          {{message}}
+        </div>
+        <h2 class="form-signin-heading">Please sign in</h2>
+        <label for="inputEmail" class="sr-only">Email address</label>
+        <input id="inputEmail" type="email" class="form-control" placeholder="Email address" ng-model="loginData.username" name="username" required/>
+        <label for="inputPassword" class="sr-only">Password</label>
+        <input id="inputPassword" type="password" class="form-control" placeholder="Password" ng-model="loginData.password" name="password" required/>
+        <button class="btn btn-lg btn-primary btn-block"
+                type="submit"
+                ng-disabled="!loginForm.$valid">Sign in</button>
+        <p>
+            Not a member? <a [routerLink]="['/signup']">Signup here</a>
+        </p>
+    </form>
+</div>
