@@ -15,7 +15,7 @@
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let book of books">
+        <tr ng-repeat="book in books">
           <td>{{ book.isbn }}</td>
           <td>{{ book.title }}</td>
           <td>{{ book.author }}</td>
@@ -25,4 +25,14 @@
     </table>
   </div>
 
+</div>
+
+<div class="container">
+  <form name="addBookForm">
+    <input type="text" placeholder="ISBN" ng-model="newBook.isbn" name="isbn">
+    <input type="text" placeholder="Title" ng-model="newBook.title" name="title">
+    <input type="text" placeholder="Author" ng-model="newBook.author" name="author">
+    <input type="text" placeholder="Publisher" ng-model="newBook.publisher" name="publisher">
+    <button class="btn btn-primary" ng-click="addBook()">Add Book</button>
+  </form>
 </div>

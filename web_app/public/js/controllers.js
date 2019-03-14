@@ -107,6 +107,13 @@ app.controller('signupController', function ($scope, $http, $location) {
 app.controller('booksController', function ($scope, $http, $location, $window) {
     $scope.message = '';
     $scope.books = null;
+
+    $scope.newBook = {};
+    $scope.newBook.isbn = '';
+    $scope.newBook.title = '';
+    $scope.newBook.author = '';
+    $scope.newBook.publisher = '';
+
     $http({
         method: 'GET',
         url: '/api/books',
@@ -114,9 +121,10 @@ app.controller('booksController', function ($scope, $http, $location, $window) {
             'Authorization': $window.localStorage.getItem('jwtToken')
         }
     }).then(function (res) {
-        console.log(res);
+        // console.log(res);
         if (res.data.success) {
-            $scope.books = res.data;
+            $scope.books = res.data.books;
+            console.log($scope.books);
         } else {
             $scope.message = res.data.msg;
         }
@@ -127,4 +135,26 @@ app.controller('booksController', function ($scope, $http, $location, $window) {
         }
 
     });
+    $scope.addBook = function () {
+        $http({
+            method: 'POST',
+            url: '/api/books',
+            data: $scope.newBook,
+            headers: {
+            'Authorization': $window.localStorage.getItem('jwtToken')}
+
+        }).then(function (res) {
+            console.log(res);
+            if (res.data.success) {
+                $scope.books.push($scope.newBook);
+                $location.path('/books');
+            } else {
+                $scope.message = res.data.msg;
+            }
+        }, function (err) {
+            console.log(err);
+            $scope.message = err.error.msg;
+        });
+
+    }
 });

@@ -93,10 +93,10 @@ router.get('/books', passport.authenticate('jwt', {session: false}), function (r
             if (err) {
                 console.log(err);
                 return next(err);
-            } else if (books.length > 1) {
-                res.json({sucess: true, books: books, msg: 'Found ' + books.length + ' books'});
+            } else if (books.length > 0) {
+                res.json({success: true, books: books, msg: 'Found ' + books.length + ' books'});
             } else {
-                res.json({sucess: false, msg: 'There is no record of books'});
+                res.json({success: false, msg: 'There is no record of books'});
             }
 
         });
