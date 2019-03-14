@@ -69,12 +69,12 @@ App listening on port: 3000
 
 # Screnshots
 ## Large Screens
-![Index on large screen](screenshots/index-large.png)
-![Sing In modal](screenshots/singin.png)
-![Books view on large screens](screenshots/books-lg.png)
+> ![Index on large screen](screenshots/index-large.png)
+> ![Sing In modal](screenshots/singin.png)
+> ![Books view on large screens](screenshots/books-lg.png)
 ## Small screens
 Extra small screen
-![Index on extra small screen](screenshots/index-sm.png)
+> ![Index on extra small screen](screenshots/index-sm.png)
 
 Ipad size screen
-![Books view on ipad size](screenshots/books-ipad.png)
+> ![Books view on ipad size](screenshots/books-ipad.png)
