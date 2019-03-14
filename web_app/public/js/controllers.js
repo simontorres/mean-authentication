@@ -1,6 +1,8 @@
 var app = angular.module('booksApp');
 
 app.controller('mainController', function ($scope, $http, $uibModal, $location, $window) {
+
+    $scope.username = $window.localStorage.getItem('userName');
     $scope.showSignin = function () {
         var modalInstance = $uibModal.open({
             templateUrl: 'views/signin.view.html',
@@ -12,21 +14,23 @@ app.controller('mainController', function ($scope, $http, $uibModal, $location, 
                 }
             }
         });
-        modalInstance.result.then(function (selectedItem) {
-            console.log(selectedItem);
-        })
+        modalInstance.result.then(function (username) {
+            $scope.username = username;
+            console.log($scope.username);
+        });
     };
 
+    $scope.isSignedIn = function () {
+        return $window.localStorage.getItem('jwtToken') !== null;
+    };
 
-
-    //  authStatus.setAuthStatus($window.localStorage.getItem('jwtToken') != null)
-   //
-   //  $scope.isSignedIn = authStatus.getAuthStatus();
-   //
     $scope.signout = function () {
-        console.log("signing out");
-      $window.localStorage.removeItem('jwtToken');
-   };
+        $scope.username = null;
+        $window.localStorage.removeItem('jwtToken');
+        $window.localStorage.removeItem('userName');
+        $location.path('/');
+    };
+
 
 
 });
@@ -53,16 +57,19 @@ app.controller('signinController', function ($scope, $http, $location, $window, 
             // console.log(res.data);
             if (res.data.success) {
                 $window.localStorage.setItem('jwtToken', res.data.token);
-
+                $window.localStorage.setItem('userName', $scope.signinData.username);
+                $uibModalInstance.close($scope.signinData.username);
                 $location.path('/books');
             } else {
                 $scope.message = res.data.msg;
+                $window.alert($scope.message);
+
             }
         }, function (err) {
             console.log(err);
             $scope.message = err.data.msg;
         });
-        $uibModalInstance.close();
+
     };
 
     $scope.cancel = function () {

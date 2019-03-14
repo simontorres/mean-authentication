@@ -35,23 +35,31 @@
         <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
             <div class="navbar-nav mr-auto">
             <ul class="nav nav-pills float-left-sm">
-                <li class="nav-item"><a class="nav-link active" href="/">Home</a></li>
-                <li class="nav-item"><a class="nav-link" href="/books">Books</a> </li>
+                <li class="nav-item"><a class="nav-link active" data-toggle="tab" href="/">Home</a></li>
+                <li class="nav-item"><a class="nav-link"  data-toggle="tab" href="/books">Books</a> </li>
             </ul>
             </div>
             <div class="navbar-nav">
             <ul class="nav nav-pills float-lg-right">
-                <li class="nav-item"><a class="nav-link" href="#"><span class="fa fa-user"></span> {{username }}</a></li>
-                <li class="nav-item">
-                    <button class="btn btn-primary"
-                        type="button"
-                        ng-click="showSignin()">
-                        <span class="fa fa-sign-in"> Sign In </span>
+                 <li class="nav-item">
+                    <button class="btn btn-outline-primary"
+                            ng-if="username"
+                            type="button">
+                            <span class="fa fa-user"> {{ username }} </span>
                     </button>
-                    <!--<a class="nav-link" href="#" ng-click="showSignin()">-->
-                        <!--<span class="fa fa-sign-out" ng-show="isSignedIn">Sign Out</span>-->
-                        <!--<span class="fa fa-sign-in" ng-hide="isSignedIn">Sign In</span>-->
-                    <!--</a>-->
+                    <button class="btn btn-primary pr-2 pb-2"
+                            ng-hide="isSignedIn()"
+                            type="button"
+                            ng-click="showSignin()">
+                            <span class="fa fa-sign-in"> Sign In </span>
+                    </button>
+                    <button class="btn btn-danger"
+                            ng-show="isSignedIn()"
+                            type="button"
+                            ng-click="signout()">
+                            <span class="fa fa-sign-out"> Sign Out </span>
+                    </button>
+
                 </li>
             </ul>
             </div>
