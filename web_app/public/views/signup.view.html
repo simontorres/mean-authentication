@@ -4,6 +4,13 @@
           <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
           {{message}}
         </div>
+        <div class="alert alert-info alert-dismissible" role="alert2">
+            <button type="button" class="close" data-dismiss="alert2" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+            You are signed out when accessing the signup page
+        </div>
+
         <h2 class="form-signin-heading">Sign Up Now</h2>
         <label for="inputEmail" class="sr-only">Email address</label>
         <input id="inputEmail" type="email" class="form-control" placeholder="Email address" ng-model="signupData.username" name="username" required/>

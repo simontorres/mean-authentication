@@ -1,8 +1,16 @@
 <div class="container">
   <div class="alert alert-warning alert-dismissible" role="alert" ng-if="message !== ''">
-          <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+      </button>
           {{message}}
-        </div>
+  </div>
+    <div class="alert alert-info alert-dismissible" role="alert2">
+      <button type="button" class="close" data-dismiss="alert2" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+      </button>
+          This area is only visible when authenticated
+  </div>
   <div ng-if="books">
     <h1>Book List</h1>
     <table class="table">
@@ -15,7 +23,7 @@
         </tr>
       </thead>
       <tbody>
-        <tr ng-repeat="book in books">
+        <tr ng-repeat="book in books track by $index">
           <td>{{ book.isbn }}</td>
           <td>{{ book.title }}</td>
           <td>{{ book.author }}</td>

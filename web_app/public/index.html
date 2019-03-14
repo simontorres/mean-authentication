@@ -27,41 +27,47 @@
 <body>
 <div class="container-fluid">
     <nav class="navbar navbar-expand-lg bg-light navbar-light fixed-top">
-        <a class="navbar-brand" href="/">SOAR Telescope</a>
+        <a class="navbar-brand" href="/">Authenticated App</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav">
             <span class="navbar-toggler-icon"></span>
         </button>
 
         <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
             <div class="navbar-nav mr-auto">
-            <ul class="nav nav-pills float-left-sm">
-                <li class="nav-item"><a class="nav-link active" data-toggle="tab" href="/">Home</a></li>
-                <li class="nav-item"><a class="nav-link"  data-toggle="tab" href="/books">Books</a> </li>
-            </ul>
+                <ul class="navbar-nav float-left-sm">
+                    <li class="nav-item m-1">
+                        <a class="nav-link active" data-toggle="tab" href="/">Home</a>
+                    </li>
+                    <li class="nav-item m-1">
+                        <a class="nav-link"  data-toggle="tab" href="/books">Books</a>
+                    </li>
+                </ul>
             </div>
             <div class="navbar-nav">
-            <ul class="nav nav-pills float-lg-right">
-                 <li class="nav-item">
-                    <button class="btn btn-outline-primary"
-                            ng-if="username"
-                            type="button">
-                            <span class="fa fa-user"> {{ username }} </span>
-                    </button>
-                    <button class="btn btn-primary pr-2 pb-2"
-                            ng-hide="isSignedIn()"
-                            type="button"
-                            ng-click="showSignin()">
-                            <span class="fa fa-sign-in"> Sign In </span>
-                    </button>
-                    <button class="btn btn-danger"
-                            ng-show="isSignedIn()"
-                            type="button"
-                            ng-click="signout()">
-                            <span class="fa fa-sign-out"> Sign Out </span>
-                    </button>
+                <ul class="navbar-nav float-lg-right">
+                    <li class="nav-item m-1">
+                        <button class="btn btn-outline-primary"
+                                ng-if="username"
+                                type="button">
+                                <span class="fa fa-user"> {{ username }} </span>
+                        </button>
+                     </li>
+                     <li class="nav-item m-1">
+                        <button class="btn btn-primary"
+                                ng-hide="isSignedIn()"
+                                type="button"
+                                ng-click="showSignin()">
+                                <span class="fa fa-sign-in"> Sign In </span>
+                        </button>
+                        <button class="btn btn-danger"
+                                ng-show="isSignedIn()"
+                                type="button"
+                                ng-click="signout()">
+                                <span class="fa fa-sign-out"> Sign Out </span>
+                        </button>
 
-                </li>
-            </ul>
+                     </li>
+                </ul>
             </div>
         </div>
     </nav>

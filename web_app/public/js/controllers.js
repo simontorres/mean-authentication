@@ -78,11 +78,16 @@ app.controller('signinController', function ($scope, $http, $location, $window, 
 
 });
 
-app.controller('signupController', function ($scope, $http, $location) {
+app.controller('signupController', function ($scope, $http, $location, $window) {
+    if ($window.localStorage.getItem('jwtToken')) {
+        $window.localStorage.removeItem('jwtToken');
+        $window.localStorage.removeItem('userName');
+    }
     $scope.signupData = {
         username: '',
         password: ''
     };
+
     $scope.message = '';
 
     $scope.signup = function () {
@@ -124,7 +129,6 @@ app.controller('booksController', function ($scope, $http, $location, $window) {
         // console.log(res);
         if (res.data.success) {
             $scope.books = res.data.books;
-            console.log($scope.books);
         } else {
             $scope.message = res.data.msg;
         }
@@ -144,9 +148,13 @@ app.controller('booksController', function ($scope, $http, $location, $window) {
             'Authorization': $window.localStorage.getItem('jwtToken')}
 
         }).then(function (res) {
-            console.log(res);
             if (res.data.success) {
-                $scope.books.push($scope.newBook);
+                if ($scope.books) {
+                    $scope.books.push($scope.newBook);
+                } else {
+                    $scope.books = [$scope.newBook];
+                }
+
                 $location.path('/books');
             } else {
                 $scope.message = res.data.msg;
